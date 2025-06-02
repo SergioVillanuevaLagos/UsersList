@@ -26,7 +26,8 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          IMAGE_NAME=ghcr.io/${{ github.repository }}/userList
+          REPO_LOWER=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
+          IMAGE_NAME=ghcr.io/$REPO_LOWER/userlist
 
           # Build image with specific SHA tag
           docker build . --file Dockerfile --tag $IMAGE_NAME:${{ github.sha }}
