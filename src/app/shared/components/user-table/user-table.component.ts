@@ -40,6 +40,7 @@ export class UserTableComponent implements OnInit {
     this.sendTableFilterColumn.emit(sortable);
   }
 
+
   showDetailProduct(user: any): void {
     this.onHandleShowDetailProduct.emit(user);
   }

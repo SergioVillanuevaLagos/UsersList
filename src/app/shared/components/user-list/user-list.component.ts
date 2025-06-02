@@ -7,9 +7,9 @@ import { BeneficiaryService } from 'src/app/services/beneficiary.service';
   styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit {
-  users: any[] = [];
-  selectedUser: any = null;
-  isEdit: boolean = false;
+  users: any[] = [];  // Lista de usuarios
+  selectedUser: any = null;  // Usuario seleccionado para crear/editar
+  isEdit: boolean = false;  // Bandera de modo edición
 
   constructor(private userService: BeneficiaryService) {}
 
@@ -17,16 +17,18 @@ export class UserListComponent implements OnInit {
     this.loadUsers();
   }
 
+  // Cargar todos los usuarios
   loadUsers(): void {
     this.userService.getAllUsers().subscribe({
       next: (data) => this.users = data,
-      error: (err) => console.error('Error al cargar los usuarios', err)
+      error: (error) => console.error('Error al cargar los usuarios', error)
     });
   }
 
+  // Guardar usuario (crear o actualizar)
   saveUser(): void {
     if (!this.selectedUser) {
-      console.warn('No hay usuario seleccionado para guardar.');
+      console.warn('No hay datos del usuario');
       return;
     }
 
@@ -37,42 +39,42 @@ export class UserListComponent implements OnInit {
     }
   }
 
+  // Crear nuevo usuario
   createUser(user: any): void {
-    if (!user || !user.name) { // Ejemplo simple de validación
-      console.warn('Datos incompletos para crear usuario');
+    // Validación básica
+    if (!user.nombres || !user.apellidos || !user.rut) {
+      console.warn('Faltan datos obligatorios para crear el usuario');
       return;
     }
 
     this.userService.createUser(user).subscribe({
       next: (newUser) => {
-        // Evita duplicados
         if (!this.users.some(u => u.id === newUser.id)) {
           this.users.push(newUser);
         }
         this.resetForm();
       },
-      error: (err) => console.error('Error al crear el usuario', err)
+      error: (error) => console.error('Error al crear el usuario', error)
     });
   }
 
+  // Actualizar usuario existente
   updateUser(id: number, updatedUser: any): void {
-    if (!updatedUser || !id) {
-      console.warn('Datos inválidos para actualizar usuario');
-      return;
-    }
+    if (!id || !updatedUser) return;
 
     this.userService.updateUser(id, updatedUser).subscribe({
       next: (updated) => {
-        const index = this.users.findIndex(u => u.id === id);
+        const index = this.users.findIndex(user => user.id === id);
         if (index !== -1) {
           this.users[index] = updated;
         }
         this.resetForm();
       },
-      error: (err) => console.error('Error al actualizar el usuario', err)
+      error: (error) => console.error('Error al actualizar el usuario', error)
     });
   }
 
+  // Eliminar un usuario
   deleteUser(id: number): void {
     this.userService.deleteUser(id).subscribe({
       next: () => {
@@ -81,20 +83,23 @@ export class UserListComponent implements OnInit {
           this.resetForm();
         }
       },
-      error: (err) => console.error('Error al eliminar el usuario', err)
+      error: (error) => console.error('Error al eliminar el usuario', error)
     });
   }
 
+  // Seleccionar usuario para editar
   selectUser(user: any): void {
-    this.selectedUser = { ...user }; // Clonar para no modificar la lista directamente
+    this.selectedUser = { ...user };
     this.isEdit = true;
   }
 
+  // Limpiar formulario
   resetForm(): void {
     this.selectedUser = null;
     this.isEdit = false;
   }
 
+  // Preparar formulario para nuevo usuario
   createNewUser(): void {
     this.selectedUser = {};
     this.isEdit = false;

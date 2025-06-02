@@ -1,4 +1,9 @@
-<app-navbard></app-navbard>
-<router-outlet></router-outlet>
-<app-side-bar> </app-side-bar>
-<button routerLink="/home">Ir a otra vista</button>
+<app-navbard></app-navbard> <!-- Barra de navegación arriba -->
+
+<div class="layout-container">
+  <app-side-bar></app-side-bar> <!-- Sidebar a la izquierda -->
+
+  <div class="main-content">
+    <router-outlet></router-outlet> <!-- Aquí se cargan las vistas -->
+  </div>
+</div>

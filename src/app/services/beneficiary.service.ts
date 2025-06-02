@@ -14,7 +14,7 @@ export class BeneficiaryService {
       { id: 2, nombres: 'Ana', apellidos:'Gómez', email: 'ana@example.com', telefono: '987654321',comuna:'Chillan',rut:'22.222.222-2' }
     ];
 
-  
+
 
     constructor() {}
 
