@@ -1,0 +1,34 @@
+<p>navbard works!</p>
+<p>navbard works!</p>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navbar </title>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <ul class="nav-links">
+                <li><a href="/home" >Inicio</a></li>
+                <!-- <li ir><a href="/dispersar">Dispersar</a></li> -->
+                <li><a href="/beneficiaries">Usuarios</a></li>
+                <li><a href="/inventory">Inventario</a></li>
+                <li><a href="/caja">Caja</a></li>
+            </ul>
+
+        </div>
+    </nav>
+
+    <script>
+        // Script para el menú móvil
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

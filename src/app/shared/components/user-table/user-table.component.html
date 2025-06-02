@@ -1,0 +1,52 @@
+
+<div class="container-fluid box-container-modal">
+  <div class="table-container">
+      <div>
+          <table class="table table-ul sticky-head table-style table-responsive table-hover desktop-table no-responsive" id="OCTable" aria-describedby="OCTable">
+              <thead>
+                  <tr>
+                      <th sortable-column sortable="1" [textContent]="'RUT' " (sort)="onSortColumn($event)"></th>
+                      <th sortable-column sortable="2" [textContent]="'Nombre'" (sort)="onSortColumn($event)"></th>
+                      <th sortable-column sortable="3" [textContent]="'Apellidos'" (sort)="onSortColumn($event)"></th>
+                      <th sortable-column sortable="4" [textContent]="'Direccion' " (sort)="onSortColumn($event)"></th>
+                      <th sortable-column sortable="5" [textContent]="'Comuna'" (sort)="onSortColumn($event)"></th>
+                      <th sortable-column sortable="6" [textContent]="'Telefono'" (sort)="onSortColumn($event)" ></th>
+                      <th sortable-column sortable="7" [textContent]="'e-mail' " (sort)="onSortColumn($event)"></th>
+                  </tr>
+              </thead>
+
+
+              <tbody *ngIf="!isLoadingList">
+                   <tr *ngFor="let user of users">
+                     <!-- <td class="tdnumber">
+                       {{item.numero_egreso}}
+                   </td> -->
+
+                   <td class="tdtext">
+                          {{user.rut}}
+                    </td>
+                     <td class="tdtext">
+                          {{user.nombres}}
+                    </td>
+                     <td class="tdtext">
+                          {{user.apellidos}}
+                    </td>
+                     <td class="tdtext">
+                          {{user.direccion}}
+                    </td>
+                     <td class="tdtext">
+                          {{user.comuna}}
+                    </td>
+                     <td class="tdtext">
+                          {{user.telefono}}
+                    </td>
+                     <td class="tdtext">
+                          {{user.email}}
+                          </td>
+
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+  </div>
+</div>

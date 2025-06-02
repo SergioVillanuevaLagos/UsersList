@@ -1,0 +1,35 @@
+
+<div class="sidebar">
+  <div class="menu-item" (click)="toggleDropdown('ventas')">🧾 Ventas</div>
+  <div class="dropdown" *ngIf="isOpen('ventas')">
+    <a href="#">Comprar</a>
+    <a href="#">Caja</a>
+  </div>
+
+  <div class="menu-item" (click)="toggleDropdown('usuarios')">👥 Usuarios</div>
+  <div class="dropdown" *ngIf="isOpen('usuarios')">
+    <a href="#">Registrar</a>
+    <a href="/beneficiaries">Beneficiarios</a>
+  </div>
+
+  <div class="menu-item" (click)="toggleDropdown('informes')">📚 Informes</div>
+  <div class="dropdown" *ngIf="isOpen('informes')">
+    <a href="#">Facturas</a>
+    <a href="#">Consumos</a>
+    <a href="#">Productos sin movimiento</a>
+    <a href="#">Productos</a>
+  </div>
+
+  <div class="menu-item" (click)="toggleDropdown('productos')">📦 Productos</div>
+  <div class="dropdown" *ngIf="isOpen('productos')">
+    <a href="#">Stock</a>
+    <a href="#">Inventario</a>
+  </div>
+
+  <div class="menu-item">✂️ Fraccionamiento</div>
+  <div class="menu-item">💳 Compras</div>
+  <div class="menu-item">📤 Dispersar</div>
+  <div class="menu-item">💰 Caja</div>
+  <div class="menu-item">📊 Dashboard</div>
+  <div class="menu-item">🔍 Consulta de precios</div>
+</div>

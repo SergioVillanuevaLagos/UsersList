@@ -1,0 +1,99 @@
+/* Contenedor principal centrado y con sombra suave */
+.container {
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+}
+
+/* Título centrado */
+h2 {
+  text-align: center;
+  color: #222;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+/* Estilo del formulario */
+form {
+  background-color: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 10px;
+  border: 1px solid #e3e3e3;
+}
+
+/* Etiquetas con peso medio y espaciado */
+.form-group label {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+/* Tabla con margen superior */
+.table {
+  margin-top: 2rem;
+}
+
+/* Cabecera de tabla destacada */
+thead {
+  background-color: #0d6efd;
+  color: white;
+}
+
+/* Bordes cuadriculados */
+.table-bordered th,
+.table-bordered td {
+  border: 1px solid #dee2e6 !important;
+}
+
+/* Estilo uniforme para botones */
+.btn {
+  padding: 0.5rem 1.2rem;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+/* Botón info */
+.btn-info {
+  background-color: #0dcaf0;
+  border-color: #0dcaf0;
+  color: #fff;
+}
+.btn-info:hover {
+  background-color: #0bb5d6;
+  border-color: #0bb5d6;
+}
+
+/* Botón danger */
+.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  color: #fff;
+}
+.btn-danger:hover {
+  background-color: #bb2d3b;
+  border-color: #bb2d3b;
+}
+
+/* Botón success */
+.btn-success {
+  background-color: #198754;
+  border-color: #198754;
+  color: #fff;
+}
+.btn-success:hover {
+  background-color: #157347;
+  border-color: #157347;
+}
+
+/* Espaciado entre botones */
+button + button {
+  margin-left: 8px;
+}
+
+/* Responsividad para inputs */
+input.form-control {
+  margin-bottom: 1rem;
+}

@@ -1,0 +1,79 @@
+<div class="container mt-4">
+  <h2 class="mb-3">Gestión de Usuarios</h2>
+
+  <!-- Botón para crear un nuevo usuario -->
+  <button class="btn btn-primary mb-3" (click)="createNewUser()">+ Nuevo Usuario</button>
+
+  <!-- Formulario para crear o editar un usuario -->
+  <form *ngIf="selectedUser" (ngSubmit)="saveUser()" class="mb-4">
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label>Nombre</label>
+        <input type="text" class="form-control" [(ngModel)]="selectedUser.nombres" name="nombres" required />
+      </div>
+      <div class="form-group col-md-6">
+        <label>Apellidos</label>
+        <input type="text" class="form-control" [(ngModel)]="selectedUser.apellidos" name="apellidos" required />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>RUT</label>
+      <input type="text" class="form-control" [(ngModel)]="selectedUser.rut" name="rut" required />
+    </div>
+
+    <div class="form-group">
+      <label>Dirección</label>
+      <input type="text" class="form-control" [(ngModel)]="selectedUser.direccion" name="direccion" />
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label>Comuna</label>
+        <input type="text" class="form-control" [(ngModel)]="selectedUser.comuna" name="comuna" />
+      </div>
+      <div class="form-group col-md-6">
+        <label>Teléfono</label>
+        <input type="text" class="form-control" [(ngModel)]="selectedUser.telefono" name="telefono" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" class="form-control" [(ngModel)]="selectedUser.email" name="email" />
+    </div>
+
+    <button type="submit" class="btn btn-success">{{ isEdit ? 'Actualizar' : 'Crear' }}</button>
+    <button type="button" class="btn btn-secondary ml-2" (click)="resetForm()">Cancelar</button>
+  </form>
+
+  <!-- Tabla de usuarios -->
+  <table class="table table-bordered table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Apellidos</th>
+        <th>RUT</th>
+        <th>Email</th>
+        <th>Comuna</th>
+        <th>Teléfono</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.nombres }}</td>
+        <td>{{ user.apellidos }}</td>
+        <td>{{ user.rut }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.comuna }}</td>
+        <td>{{ user.telefono }}</td>
+        <td>
+          <!-- Botones para editar y eliminar -->
+          <button class="btn btn-sm btn-info mr-2" (click)="selectUser(user)">Editar</button>
+          <button class="btn btn-sm btn-danger" (click)="deleteUser(user.id)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

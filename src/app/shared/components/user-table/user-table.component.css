@@ -1,0 +1,64 @@
+.skeleton-loader {
+  background-color: #DFDFDF;
+  height: 30px;
+  width: 80px;
+  animation: skeleton-loading 1.2s infinite ease-in-out;
+  border-radius: 4px;
+}
+
+.skeleton-loader.large {
+  width: 150px;
+}
+
+.skeleton-loader.wide {
+  width: 200px;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-color: #e0e0e0;
+  }
+  50% {
+    background-color: #c0c0c0;
+  }
+  100% {
+    background-color: #e0e0e0;
+  }
+}
+/* CSS para crear un loader tipo skeleton */
+.skeleton-loader {
+    background-color: #DFDFDF;
+    height: 30px;
+    border-radius: 4px;
+    width: 80px;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+.skeleton-loader.tdtext {
+    width: 150px;
+}
+
+.skeleton-loader.tdbutton {
+    width: 80px;
+}
+
+.skeleton-loader.tddate {
+    width: 80px;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.4;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Opcional: para mejorar la apariencia del skeleton */
+.skeleton-loader {
+    margin-bottom: 10px;
+}
