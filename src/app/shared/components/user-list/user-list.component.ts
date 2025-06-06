@@ -7,9 +7,10 @@ import { BeneficiaryService } from 'src/app/services/beneficiary.service';
   styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit {
-  users: any[] = [];  // Lista de usuarios
-  selectedUser: any = null;  // Usuario seleccionado para crear/editar
-  isEdit: boolean = false;  // Bandera de modo edición
+  users: any[] = [];
+  filteredUsers: any[] = [];
+  selectedUser: any = null;
+  isEdit: boolean = false;
 
   constructor(private userService: BeneficiaryService) {}
 
@@ -17,56 +18,54 @@ export class UserListComponent implements OnInit {
     this.loadUsers();
   }
 
-  // Cargar todos los usuarios
   loadUsers(): void {
     this.userService.getAllUsers().subscribe({
-      next: (data) => this.users = data,
+      next: (data) => {
+        this.users = data;
+        this.filteredUsers = [...this.users];
+      },
       error: (error) => console.error('Error al cargar los usuarios', error)
     });
   }
 
-  // Guardar usuario (crear o actualizar)
-  saveUser(): void {
-    if (!this.selectedUser) {
-      console.warn('No hay datos del usuario');
-      return;
-    }
-
-    if (this.isEdit) {
-      this.updateUser(this.selectedUser.id, this.selectedUser);
-    } else {
-      this.createUser(this.selectedUser);
-    }
+  onSearch(term: string): void {
+    const lowerTerm = term.toLowerCase();
+    this.filteredUsers = this.users.filter(user =>
+      user.nombres?.toLowerCase().includes(lowerTerm) ||
+      user.apellidos?.toLowerCase().includes(lowerTerm) ||
+      user.rut?.toLowerCase().includes(lowerTerm) ||
+      user.email?.toLowerCase().includes(lowerTerm) ||
+      user.comuna?.toLowerCase().includes(lowerTerm) ||
+      user.telefono?.toLowerCase().includes(lowerTerm)
+    );
   }
 
-  // Crear nuevo usuario
+  saveUser(): void {
+    if (!this.selectedUser) return;
+    this.isEdit
+      ? this.updateUser(this.selectedUser.id, this.selectedUser)
+      : this.createUser(this.selectedUser);
+  }
+
   createUser(user: any): void {
-    // Validación básica
-    if (!user.nombres || !user.apellidos || !user.rut) {
-      console.warn('Faltan datos obligatorios para crear el usuario');
-      return;
-    }
+    if (!user.nombres || !user.apellidos || !user.rut) return;
 
     this.userService.createUser(user).subscribe({
       next: (newUser) => {
-        if (!this.users.some(u => u.id === newUser.id)) {
-          this.users.push(newUser);
-        }
+        this.loadUsers(); // Carga desde backend para asegurar consistencia
         this.resetForm();
       },
       error: (error) => console.error('Error al crear el usuario', error)
     });
   }
 
-  // Actualizar usuario existente
   updateUser(id: number, updatedUser: any): void {
-    if (!id || !updatedUser) return;
-
     this.userService.updateUser(id, updatedUser).subscribe({
       next: (updated) => {
         const index = this.users.findIndex(user => user.id === id);
         if (index !== -1) {
           this.users[index] = updated;
+          this.filteredUsers = [...this.users];
         }
         this.resetForm();
       },
@@ -74,32 +73,27 @@ export class UserListComponent implements OnInit {
     });
   }
 
-  // Eliminar un usuario
   deleteUser(id: number): void {
     this.userService.deleteUser(id).subscribe({
       next: () => {
         this.users = this.users.filter(user => user.id !== id);
-        if (this.selectedUser?.id === id) {
-          this.resetForm();
-        }
+        this.filteredUsers = [...this.users];
+        if (this.selectedUser?.id === id) this.resetForm();
       },
       error: (error) => console.error('Error al eliminar el usuario', error)
     });
   }
 
-  // Seleccionar usuario para editar
   selectUser(user: any): void {
     this.selectedUser = { ...user };
     this.isEdit = true;
   }
 
-  // Limpiar formulario
   resetForm(): void {
     this.selectedUser = null;
     this.isEdit = false;
   }
 
-  // Preparar formulario para nuevo usuario
   createNewUser(): void {
     this.selectedUser = {};
     this.isEdit = false;

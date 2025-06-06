@@ -10,6 +10,7 @@ import { UserTableComponent } from './shared/components/user-table/user-table.co
 import { UserListComponent } from './shared/components/user-list/user-list.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { SearchInputComponent } from './shared/components/search-input/search-input.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { HttpClientModule } from '@angular/common/http';
     HomeComponent,
     NavbardComponent,
     UserTableComponent,
-    UserListComponent
+    UserListComponent,
+    SearchInputComponent
   ],
   imports: [
     BrowserModule,
