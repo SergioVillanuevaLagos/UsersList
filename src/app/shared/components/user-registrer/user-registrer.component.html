@@ -9,6 +9,12 @@
       <app-search-input (search)="onSearch($event)"></app-search-input>
     </div>
   </div>
+
+  <!-- Botón de nuevo usuario -->
+  <button class="btn new-user-btn" (click)="createNewUser()">
+    <i class="fas fa-plus"></i> Nuevo Usuario
+  </button>
+
   <!-- Formulario de usuario -->
   <form *ngIf="selectedUser" (ngSubmit)="saveUser()" class="user-form">
     <div class="form-group">

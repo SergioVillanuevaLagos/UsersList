@@ -11,6 +11,9 @@ import { UserListComponent } from './shared/components/user-list/user-list.compo
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SearchInputComponent } from './shared/components/search-input/search-input.component';
+import { BeneficiariosComponent } from './views/beneficiarios/beneficiarios.component';
+import { RegistrarUsuariosComponent } from './views/registrar-usuarios/registrar-usuarios.component';
+import { UserRegistrerComponent } from './shared/components/user-registrer/user-registrer.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,10 @@ import { SearchInputComponent } from './shared/components/search-input/search-in
     NavbardComponent,
     UserTableComponent,
     UserListComponent,
-    SearchInputComponent
+    SearchInputComponent,
+    BeneficiariosComponent,
+    RegistrarUsuariosComponent,
+    UserRegistrerComponent
   ],
   imports: [
     BrowserModule,
