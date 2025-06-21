@@ -1,0 +1,110 @@
+<div class="sales-management-container">
+  <h2 class="management-title">Gestión de Ventas</h2>
+
+  <!-- Sección de búsqueda -->
+  <div class="search-section">
+    <h3 class="section-title">Buscar Transacciones</h3>
+    <p class="section-description">Filtra las transacciones por cliente o fecha.</p>
+    <div class="search-input-container">
+      <input type="text" class="form-control" placeholder="Buscar por cliente o fecha..." [(ngModel)]="searchTerm" (input)="onSearch()" />
+    </div>
+  </div>
+
+  <!-- Formulario de transacción -->
+  <form *ngIf="selectedTransaction" (ngSubmit)="saveTransaction()" class="transaction-form">
+    <div class="form-group">
+      <label for="transactionDate">Fecha de Transacción:</label>
+      <input type="date" id="transactionDate" class="form-control" [(ngModel)]="selectedTransaction.transactionDate" name="transactionDate">
+    </div>
+
+    <div class="form-group">
+      <label for="customerId">Cliente (ID):</label>
+      <input type="text" id="customerId" class="form-control" [(ngModel)]="selectedTransaction.customerId" name="customerId" required>
+    </div>
+
+    <!-- Productos -->
+    <div class="products-section">
+      <h4>Productos</h4>
+      <div *ngFor="let product of selectedTransaction.products; let i = index" class="form-row product-row">
+        <div class="form-group">
+          <label>Producto ID:</label>
+          <input type="text" class="form-control" [(ngModel)]="product.productId" name="productId{{ i }}" required>
+        </div>
+        <div class="form-group">
+          <label>Cantidad:</label>
+          <input type="number" class="form-control" [(ngModel)]="product.quantity" name="quantity{{ i }}" min="1" required>
+        </div>
+        <div class="form-group">
+          <label>Precio Unitario:</label>
+          <input type="number" class="form-control" [(ngModel)]="product.unitPrice" name="unitPrice{{ i }}" min="0" step="0.01" required>
+        </div>
+        <button type="button" class="btn delete-btn" (click)="removeProduct(i)">
+          <i class="fas fa-trash"></i>
+        </button>
+      </div>
+      <button type="button" class="btn add-btn" (click)="addProduct()">
+        <i class="fas fa-plus"></i> Agregar Producto
+      </button>
+    </div>
+
+    <div class="form-group">
+      <label for="paymentMethod">Método de Pago:</label>
+      <select id="paymentMethod" class="form-control" [(ngModel)]="selectedTransaction.paymentMethod" name="paymentMethod" required>
+        <option value="">Seleccione</option>
+        <option value="cash">Efectivo</option>
+        <option value="credit_card">Tarjeta de Crédito</option>
+        <option value="debit_card">Tarjeta de Débito</option>
+        <option value="bank_transfer">Transferencia</option>
+        <option value="digital_wallet">Billetera Digital</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="notes">Notas:</label>
+      <textarea id="notes" class="form-control" [(ngModel)]="selectedTransaction.notes" name="notes" rows="2" maxlength="1000"></textarea>
+    </div>
+
+    <div class="form-actions">
+      <button type="button" class="btn cancel-btn" (click)="resetForm()">
+        <i class="fas fa-times"></i> Cancelar
+      </button>
+      <button type="submit" class="btn submit-btn">
+        <i class="fas fa-save"></i> {{ isEdit ? 'Actualizar' : 'Crear' }}
+      </button>
+    </div>
+  </form>
+
+  <!-- Tabla de transacciones -->
+  <div class="transactions-table-container">
+    <table class="transactions-table">
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Cliente</th>
+          <th>Método de Pago</th>
+          <th>Monto Total</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let t of filteredTransactions">
+          <td>{{ t.transactionDate | date }}</td>
+          <td>{{ t.customerId }}</td>
+          <td>{{ t.paymentMethod }}</td>
+          <td>{{ t.totalAmount | currency:'CLP' }}</td>
+          <td class="actions-cell">
+            <button class="btn edit-btn" (click)="selectTransaction(t)">
+              <i class="fas fa-edit"></i> Editar
+            </button>
+            <button class="btn delete-btn" (click)="deleteTransaction(t.id!)">
+              <i class="fas fa-trash-alt"></i> Eliminar
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="filteredTransactions.length === 0">
+          <td colspan="5" class="no-results">No se encontraron transacciones</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
