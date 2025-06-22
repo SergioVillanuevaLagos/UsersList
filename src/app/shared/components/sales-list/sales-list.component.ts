@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SalesTransaction, Product } from 'src/app/services/sales-inventori.service';
-import { MockSalesService as SalesInventoriService } from 'src/app/services/mock-sales.service';
-
-
+import { SalesInventoriService } from 'src/app/services/sales-inventori.service';
+import { SalesTransaction } from 'src/app/services/sales-inventori.service';
 
 @Component({
   selector: 'app-sales-list',
@@ -97,7 +95,12 @@ export class SalesListComponent implements OnInit {
   }
 
   // Eliminar transacción
-  deleteTransaction(id: string): void {
+  deleteTransaction(id: number | undefined): void {
+    if (id === undefined) {
+      console.error('ID de transacción no válido');
+      return;
+    }
+
     if (!confirm('¿Estás seguro de eliminar esta transacción?')) return;
 
     this.salesService.deleteSalesTransaction(id).subscribe({

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:3003'
+  apiUrl: 'https://inventory-microservice-production-a316.up.railway.app'
 };
 
 /*
