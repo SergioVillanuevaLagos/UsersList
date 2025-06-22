@@ -17,7 +17,7 @@ export interface SalesTransaction {
   transactionDate?: string;
   customerId: string;
   products: Product[];
-  paymentMethod: 'cash' | 'credit_card' | 'debit_card' | 'bank_transfer' | 'digital_wallet';
+  paymentMethod: 'cash' | 'credit_card' | 'debit_card' | 'bank_transfer' | 'digital_wallet' | null;
   totalAmount?: number;
   notes?: string;
   createdAt?: string;

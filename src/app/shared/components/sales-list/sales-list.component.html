@@ -6,20 +6,41 @@
     <h3 class="section-title">Buscar Transacciones</h3>
     <p class="section-description">Filtra las transacciones por cliente o fecha.</p>
     <div class="search-input-container">
-      <input type="text" class="form-control" placeholder="Buscar por cliente o fecha..." [(ngModel)]="searchTerm" (input)="onSearch()" />
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Buscar por cliente o fecha..."
+        [(ngModel)]="searchTerm"
+        (input)="onSearch()" />
     </div>
   </div>
+
+  <!-- Botón para nueva venta -->
+  <button class="btn new-user-btn" (click)="createNewSale()">
+    <i class="fas fa-plus"></i> Nueva Venta
+  </button>
 
   <!-- Formulario de transacción -->
   <form *ngIf="selectedTransaction" (ngSubmit)="saveTransaction()" class="transaction-form">
     <div class="form-group">
       <label for="transactionDate">Fecha de Transacción:</label>
-      <input type="date" id="transactionDate" class="form-control" [(ngModel)]="selectedTransaction.transactionDate" name="transactionDate">
+      <input
+        type="date"
+        id="transactionDate"
+        class="form-control"
+        [(ngModel)]="selectedTransaction.transactionDate"
+        name="transactionDate" />
     </div>
 
     <div class="form-group">
       <label for="customerId">Cliente (ID):</label>
-      <input type="text" id="customerId" class="form-control" [(ngModel)]="selectedTransaction.customerId" name="customerId" required>
+      <input
+        type="text"
+        id="customerId"
+        class="form-control"
+        [(ngModel)]="selectedTransaction.customerId"
+        name="customerId"
+        required />
     </div>
 
     <!-- Productos -->
@@ -28,20 +49,46 @@
       <div *ngFor="let product of selectedTransaction.products; let i = index" class="form-row product-row">
         <div class="form-group">
           <label>Producto ID:</label>
-          <input type="text" class="form-control" [(ngModel)]="product.productId" name="productId{{ i }}" required>
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="product.productId"
+            name="productId{{ i }}"
+            required />
         </div>
+
         <div class="form-group">
           <label>Cantidad:</label>
-          <input type="number" class="form-control" [(ngModel)]="product.quantity" name="quantity{{ i }}" min="1" required>
+          <input
+            type="number"
+            class="form-control"
+            [(ngModel)]="product.quantity"
+            name="quantity{{ i }}"
+            min="1"
+            required />
         </div>
+
         <div class="form-group">
           <label>Precio Unitario:</label>
-          <input type="number" class="form-control" [(ngModel)]="product.unitPrice" name="unitPrice{{ i }}" min="0" step="0.01" required>
+          <input
+            type="number"
+            class="form-control"
+            [(ngModel)]="product.unitPrice"
+            name="unitPrice{{ i }}"
+            min="0"
+            step="0.01"
+            required />
         </div>
-        <button type="button" class="btn delete-btn" (click)="removeProduct(i)">
-          <i class="fas fa-trash"></i>
-        </button>
+
+        <div class="delete-btn-wrapper">
+          <button type="button" class="btn delete-btn" (click)="removeProduct(i)">
+            <i class="fas fa-trash-alt"></i> Eliminar
+          </button>
+        </div>
+
       </div>
+
+      <!-- Botón para agregar producto -->
       <button type="button" class="btn add-btn" (click)="addProduct()">
         <i class="fas fa-plus"></i> Agregar Producto
       </button>
@@ -49,8 +96,13 @@
 
     <div class="form-group">
       <label for="paymentMethod">Método de Pago:</label>
-      <select id="paymentMethod" class="form-control" [(ngModel)]="selectedTransaction.paymentMethod" name="paymentMethod" required>
-        <option value="">Seleccione</option>
+      <select
+        id="paymentMethod"
+        class="form-control"
+        [(ngModel)]="selectedTransaction.paymentMethod"
+        name="paymentMethod"
+        required>
+        <option [ngValue]="undefined">Seleccione</option>
         <option value="cash">Efectivo</option>
         <option value="credit_card">Tarjeta de Crédito</option>
         <option value="debit_card">Tarjeta de Débito</option>
@@ -61,7 +113,14 @@
 
     <div class="form-group">
       <label for="notes">Notas:</label>
-      <textarea id="notes" class="form-control" [(ngModel)]="selectedTransaction.notes" name="notes" rows="2" maxlength="1000"></textarea>
+      <textarea
+        id="notes"
+        class="form-control"
+        [(ngModel)]="selectedTransaction.notes"
+        name="notes"
+        rows="2"
+        maxlength="1000">
+      </textarea>
     </div>
 
     <div class="form-actions">

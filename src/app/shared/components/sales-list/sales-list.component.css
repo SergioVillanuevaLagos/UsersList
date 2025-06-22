@@ -68,6 +68,56 @@
   box-shadow: 0 4px 8px rgba(46, 204, 113, 0.2);
 }
 
+.cancel-btn {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.cancel-btn:hover {
+  background-color: #c0392b;
+}
+
+.submit-btn {
+  background-color: #3498db;
+  color: white;
+}
+
+.submit-btn:hover {
+  background-color: #2980b9;
+}
+
+.edit-btn {
+  background-color: #f39c12;
+  color: white;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+}
+
+.edit-btn:hover {
+  background-color: #d35400;
+}
+
+.delete-btn {
+  background-color: #e74c3c;
+  color: white;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+}
+
+.delete-btn:hover {
+  background-color: #c0392b;
+}
+
+.new-user-btn {
+  background-color: #1abc9c;
+  color: white;
+  margin: 10px 0 20px;
+}
+
+.new-user-btn:hover {
+  background-color: #16a085;
+}
+
 /* Formulario */
 .transaction-form {
   background-color: white;
@@ -85,12 +135,16 @@
 
 .form-row {
   display: flex;
-  gap: 20px;
-  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center; /* Cambiado para mejor alineación vertical */
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #ecf0f1;
+  padding-bottom: 1rem;
 }
 
 .form-row .form-group {
-  flex: 1;
+  flex: 1 1 200px;
 }
 
 label {
@@ -122,22 +176,49 @@ label {
   margin-top: 25px;
 }
 
-.cancel-btn {
+/* Productos */
+.products-section {
+  margin-top: 30px;
+}
+
+.product-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center; /* Cambiado a center para que el botón eliminar se alinee */
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #ecf0f1;
+  padding-bottom: 1rem;
+}
+
+.product-row .form-group {
+  flex: 1 1 200px;
+}
+
+.delete-btn-wrapper {
+  display: flex;
+  align-items: center; /* Centrado vertical para el botón */
+  margin-bottom: 0;
+  flex-shrink: 0; /* Evita que se achique */
+}
+
+.delete-btn-wrapper button {
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
   background-color: #e74c3c;
   color: white;
 }
 
-.cancel-btn:hover {
+.delete-btn-wrapper button:hover {
   background-color: #c0392b;
-}
-
-.submit-btn {
-  background-color: #3498db;
-  color: white;
-}
-
-.submit-btn:hover {
-  background-color: #2980b9;
+  transform: translateY(-1px);
 }
 
 /* Tabla de transacciones */
@@ -182,28 +263,6 @@ label {
   gap: 10px;
 }
 
-.edit-btn {
-  background-color: #f39c12;
-  color: white;
-  padding: 6px 12px;
-  font-size: 0.9rem;
-}
-
-.edit-btn:hover {
-  background-color: #d35400;
-}
-
-.delete-btn {
-  background-color: #e74c3c;
-  color: white;
-  padding: 6px 12px;
-  font-size: 0.9rem;
-}
-
-.delete-btn:hover {
-  background-color: #c0392b;
-}
-
 .no-results {
   text-align: center;
   padding: 30px;
@@ -230,5 +289,19 @@ label {
   .actions-cell {
     flex-direction: column;
     gap: 5px;
+  }
+
+  .product-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .delete-btn-wrapper {
+    align-items: flex-start;
+  }
+
+  .delete-btn-wrapper button {
+    width: 100%;
+    justify-content: center;
   }
 }

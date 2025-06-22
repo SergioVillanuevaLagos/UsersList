@@ -114,4 +114,15 @@ export class SalesListComponent implements OnInit {
     this.selectedTransaction = null;
     this.isEdit = false;
   }
+
+  createNewSale(): void {
+    this.selectedTransaction = {
+      customerId: '',
+      products: [],
+      paymentMethod: null,
+      notes: '',
+      transactionDate: new Date().toISOString().split('T')[0]
+    };
+    this.isEdit = false;
+  }
 }
