@@ -14,6 +14,8 @@ import { SearchInputComponent } from './shared/components/search-input/search-in
 import { BeneficiariosComponent } from './views/beneficiarios/beneficiarios.component';
 import { RegistrarUsuariosComponent } from './views/registrar-usuarios/registrar-usuarios.component';
 import { UserRegistrerComponent } from './shared/components/user-registrer/user-registrer.component';
+import { SalesListComponent } from './shared/components/sales-list/sales-list.component';
+import { SalesComponent } from './views/sales/sales.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { UserRegistrerComponent } from './shared/components/user-registrer/user-
     SearchInputComponent,
     BeneficiariosComponent,
     RegistrarUsuariosComponent,
-    UserRegistrerComponent
+    UserRegistrerComponent,
+    SalesListComponent,
+    SalesComponent
   ],
   imports: [
     BrowserModule,
