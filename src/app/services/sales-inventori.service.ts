@@ -25,31 +25,6 @@ export interface SalesTransaction {
 export class SalesInventoriService {
   //Cambiar la URL a la de tu API real
   private apiUrl = 'http://localhost:3000/api/sales-transactions';
-  /*private apiUrl: SalesTransaction[] = [
-    {
-      id: '1',
-      transactionDate: '2024-06-01',
-      customerId: 'cliente1',
-      paymentMethod: 'cash',
-      totalAmount: 15000,
-      notes: 'Primera venta',
-      products: [
-        { productId: 'prod1', quantity: 2, unitPrice: 5000 },
-        { productId: 'prod2', quantity: 1, unitPrice: 5000 }
-      ]
-    },
-    {
-      id: '2',
-      transactionDate: '2024-06-15',
-      customerId: 'cliente2',
-      paymentMethod: 'credit_card',
-      totalAmount: 20000,
-      notes: '',
-      products: [
-        { productId: 'prod3', quantity: 4, unitPrice: 5000 }
-      ]
-    }
-  ];*/
 
   constructor(private http: HttpClient) {}
 

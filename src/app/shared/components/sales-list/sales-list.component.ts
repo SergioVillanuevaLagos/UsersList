@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SalesTransaction, Product } from 'src/app/services/sales-inventori.service';
-import { MockSalesService as SalesInventoriService } from 'src/app/services/mock-sales.service';
+import { SalesInventoriService,SalesTransaction, Product } from 'src/app/services/sales-inventori.service';
 
 @Component({
   selector: 'app-sales-list',
