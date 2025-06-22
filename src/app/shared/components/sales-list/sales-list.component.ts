@@ -22,16 +22,17 @@ export class SalesListComponent implements OnInit {
     this.loadTransactions();
   }
 
-  // Cargar todas las transacciones
   loadTransactions(): void {
     this.salesService.getAllSalesTransactions().subscribe({
       next: (data) => {
+        console.log('Datos recibidos del backend:', data);
         this.transactions = data;
         this.filteredTransactions = data;
       },
       error: (err) => console.error('Error al cargar transacciones:', err)
     });
   }
+
 
   // Filtrar por búsqueda
   onSearch(): void {
