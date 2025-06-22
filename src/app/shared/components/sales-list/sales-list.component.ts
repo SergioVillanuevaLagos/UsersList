@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { SalesInventoriService, SalesTransaction, Product } from 'src/app/services/sales-inventori.service';
+import { SalesTransaction, Product } from 'src/app/services/sales-inventori.service';
+import { MockSalesService as SalesInventoriService } from 'src/app/services/mock-sales.service';
+
+
 
 @Component({
   selector: 'app-sales-list',
@@ -9,13 +12,7 @@ import { SalesInventoriService, SalesTransaction, Product } from 'src/app/servic
 export class SalesListComponent implements OnInit {
   transactions: SalesTransaction[] = [];
   filteredTransactions: SalesTransaction[] = [];
-  selectedTransaction: SalesTransaction = {
-    customerId: '',
-    products: [],
-    paymentMethod: 'cash',
-    transactionDate: '',
-    notes: ''
-  };
+  selectedTransaction: SalesTransaction | null = null;
   isEdit: boolean = false;
   searchTerm: string = '';
 
@@ -25,6 +22,7 @@ export class SalesListComponent implements OnInit {
     this.loadTransactions();
   }
 
+  // Cargar todas las transacciones
   loadTransactions(): void {
     this.salesService.getAllSalesTransactions().subscribe({
       next: (data) => {
@@ -35,6 +33,7 @@ export class SalesListComponent implements OnInit {
     });
   }
 
+  // Filtrar por búsqueda
   onSearch(): void {
     const term = this.searchTerm.toLowerCase();
     this.filteredTransactions = this.transactions.filter(t =>
@@ -43,11 +42,13 @@ export class SalesListComponent implements OnInit {
     );
   }
 
+  // Seleccionar para editar
   selectTransaction(transaction: SalesTransaction): void {
     this.selectedTransaction = JSON.parse(JSON.stringify(transaction)); // Clonamos para evitar editar directamente
     this.isEdit = true;
   }
 
+  // Agregar nuevo producto
   addProduct(): void {
     if (this.selectedTransaction) {
       this.selectedTransaction.products.push({
@@ -58,15 +59,18 @@ export class SalesListComponent implements OnInit {
     }
   }
 
+  // Eliminar producto de la lista
   removeProduct(index: number): void {
-    this.selectedTransaction.products.splice(index, 1);
+    this.selectedTransaction?.products.splice(index, 1);
   }
 
+  // Guardar transacción (crear o actualizar)
   saveTransaction(): void {
     if (!this.selectedTransaction) return;
 
     const transaction = this.selectedTransaction;
 
+    // Calcular total si no viene
     transaction.totalAmount = transaction.products.reduce(
       (sum, p) => sum + (p.quantity * p.unitPrice),
       0
@@ -91,6 +95,7 @@ export class SalesListComponent implements OnInit {
     }
   }
 
+  // Eliminar transacción
   deleteTransaction(id: string): void {
     if (!confirm('¿Estás seguro de eliminar esta transacción?')) return;
 
@@ -100,14 +105,9 @@ export class SalesListComponent implements OnInit {
     });
   }
 
+  // Resetear formulario
   resetForm(): void {
-    this.selectedTransaction = {
-      customerId: '',
-      products: [],
-      paymentMethod: 'cash',
-      transactionDate: '',
-      notes: ''
-    };
+    this.selectedTransaction = null;
     this.isEdit = false;
   }
 }
