@@ -199,6 +199,7 @@ label {
   display: flex;
   align-items: center; /* Centrado vertical para el botón */
   margin-bottom: 0;
+  margin-left: 20px;
   flex-shrink: 0; /* Evita que se achique */
 }
 
