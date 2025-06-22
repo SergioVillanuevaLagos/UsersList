@@ -19,11 +19,12 @@ RUN npm run build -- --configuration production
 # Etapa 2: Servir app con Nginx
 FROM nginx:alpine
 
-# Copiar configuración de Nginx (opcional si tienes una personalizada)
+# Copy custom Nginx configuration
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Copy built assets
 COPY --from=build /app/dist/benef-fornt /usr/share/nginx/html
 
-# Exponer el puerto
+# Expose port and start Nginx
 EXPOSE 80
-
-# Iniciar Nginx
 CMD ["nginx", "-g", "daemon off;"]
