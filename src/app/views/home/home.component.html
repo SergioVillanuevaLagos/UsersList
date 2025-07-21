@@ -18,7 +18,7 @@
     <div class="user-card" *ngIf="userInfo">
       <h3>Información del Usuario</h3>
       <div class="user-info">
-        <p><strong>Email:</strong> {{ userInfo.email }}</p>
+        <p><strong>Usuario:</strong> {{ userInfo.username }}</p>
         <p *ngIf="userInfo.roles?.length"><strong>Roles:</strong> {{ userInfo.roles?.join(', ') }}</p>
         <p *ngIf="userInfo.permissions?.length"><strong>Permisos:</strong> {{ userInfo.permissions?.join(', ') }}</p>
       </div>
