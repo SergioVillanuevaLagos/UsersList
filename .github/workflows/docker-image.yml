@@ -1,4 +1,4 @@
-name: CI - Build, Test and Deploy Inventario-GPS
+name: CI - Build and Publish Docker Image
 
 on:
   push:
@@ -12,12 +12,11 @@ env:
   IMAGE_NAME: ${{ github.repository }}/inventario-gps
 
 jobs:
-  build-test-and-push:
+  build-and-push:
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
-      id-token: write
 
     steps:
       - name: Checkout repository
@@ -46,7 +45,7 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
-            type=raw,value=v${{ github.run_number }}
+            type=raw,value=v.${{ github.run_number }}
             type=raw,value=latest,enable={{is_default_branch}}
 
       - name: Build and push Docker image to GHCR
