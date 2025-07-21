@@ -14,7 +14,7 @@ Frontend application for the GPS (Gestión de Productos y Servicios) system, con
 ## Prerequisites
 
 - Node.js (version 14 or higher)
-- npm or yarn
+- npm or yarn  
 - Angular CLI
 
 ## Installation
