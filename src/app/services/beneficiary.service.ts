@@ -1,59 +1,60 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { AuthService } from 'src/app/services/auth.service';
+
+export interface Beneficiary {
+  id?: number;
+  nombres: string;
+  apellidos: string;
+  email: string;
+  telefono: string;
+  comuna: string;
+  rut: string;
+  direccion?: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class BeneficiaryService {
+  private apiUrl = `${environment.apiUrl}/beneficiarios`;
 
-   // private apiUrl = `${environment.apiUrl}/users`;
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService
+  ) {}
 
-    private users = [
-      { id: 1, nombres: 'Juan', apellidos:'Pérez', email: 'juan@example.com', telefono: '123456789',comuna:'Chillan',rut:'11.111.111-1' },
-      { id: 2, nombres: 'Ana', apellidos:'Gómez', email: 'ana@example.com', telefono: '987654321',comuna:'Chillan',rut:'22.222.222-2' }
-    ];
+  private getHeaders(): HttpHeaders {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      ...this.authService.getAuthHeaders()
+    });
+    return headers;
+  }
 
+  getAllBeneficiaries(): Observable<Beneficiary[]> {
+    return this.http.get<Beneficiary[]>(this.apiUrl, { headers: this.getHeaders() });
+  }
 
+  getBeneficiaryById(id: number): Observable<Beneficiary> {
+    return this.http.get<Beneficiary>(`${this.apiUrl}/${id}`, { headers: this.getHeaders() });
+  }
 
-    constructor() {}
+  createBeneficiary(beneficiary: Beneficiary): Observable<Beneficiary> {
+    return this.http.post<Beneficiary>(this.apiUrl, beneficiary, { headers: this.getHeaders() });
+  }
 
+  updateBeneficiary(id: number, beneficiary: Beneficiary): Observable<Beneficiary> {
+    return this.http.put<Beneficiary>(`${this.apiUrl}/${id}`, beneficiary, { headers: this.getHeaders() });
+  }
 
-    getAllUsers(): Observable<any> {
-      return of(this.users);  // Simula la respuesta de la API
-    }
-
-    // Obtener un usuario por su ID
-    getUserById(id: number): Observable<any> {
-      const user = this.users.find(u => u.id === id);
-      return of(user);  // Devuelve el usuario con el ID especificado
-    }
-
-    // Crear un nuevo usuario
-    createUser(user: any): Observable<any> {
-      user.id = this.users.length + 1;  // Asigna un nuevo ID
-      this.users.push(user);  // Agrega el usuario a la lista
-      return of(user);  // Devuelve el usuario creado
-    }
-
-    // Actualizar un usuario
-    updateUser(id: number, user: any): Observable<any> {
-      const index = this.users.findIndex(u => u.id === id);
-      if (index !== -1) {
-        this.users[index] = { ...this.users[index], ...user };  // Actualiza los datos
-      }
-      return of(this.users[index]);  // Devuelve el usuario actualizado
-    }
-
-    // Eliminar un usuario
-    deleteUser(id: number): Observable<any> {
-      const index = this.users.findIndex(u => u.id === id);
-      if (index !== -1) {
-        this.users.splice(index, 1);  // Elimina el usuario de la lista
-      }
-      return of({ message: 'Usuario eliminado' });  // Simula la eliminación
-    }
-
+  deleteBeneficiary(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`, { headers: this.getHeaders() });
+  }
 }
 
 

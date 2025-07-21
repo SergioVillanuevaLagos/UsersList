@@ -1,34 +1,32 @@
-<p>navbard works!</p>
-<p>navbard works!</p>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Navbar </title>
-</head>
-<body>
-    <nav class="navbar">
-        <div class="nav-container">
-            <ul class="nav-links">
-                <li><a href="/home" >Inicio</a></li>
-                <!-- <li ir><a href="/dispersar">Dispersar</a></li> -->
-                <li><a href="/beneficiaries">Usuarios</a></li>
-                <li><a href="/inventory">Inventario</a></li>
-                <li><a href="/caja">Caja</a></li>
-            </ul>
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="nav-brand">
+      <h2>GPS System</h2>
+    </div>
 
-        </div>
-    </nav>
+    <ul class="nav-links">
+      <li><a (click)="ira('/home')" class="nav-link">Inicio</a></li>
+      <li><a (click)="ira('/beneficiarios')" class="nav-link">Beneficiarios</a></li>
+      <li><a (click)="ira('/registrar-usuarios')" class="nav-link">Registrar Usuarios</a></li>
+      <li><a (click)="ira('/ventas')" class="nav-link">Ventas</a></li>
+    </ul>
 
-    <script>
-        // Script para el menú móvil
-        const menuToggle = document.querySelector('.menu-toggle');
-        const navLinks = document.querySelector('.nav-links');
+    <div class="nav-user" *ngIf="isAuthenticated()">
+      <div class="user-info">
+        <span class="user-email">{{ currentUser?.email }}</span>
+        <span class="user-roles" *ngIf="currentUser?.roles?.length">
+          ({{ currentUser?.roles?.join(', ') }})
+        </span>
+      </div>
+      <button (click)="logout()" class="logout-btn">
+        Cerrar Sesión
+      </button>
+    </div>
 
-        menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-    </script>
-</body>
-</html>
+    <div class="nav-user" *ngIf="!isAuthenticated()">
+      <button (click)="ira('/login')" class="login-btn">
+        Iniciar Sesión
+      </button>
+    </div>
+  </div>
+</nav>

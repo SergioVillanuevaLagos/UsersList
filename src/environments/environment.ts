@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://inventory-microservice-production-a316.up.railway.app'
+  apiUrl: 'https://api-gateway-production-f577.up.railway.app'
 };
 
 /*

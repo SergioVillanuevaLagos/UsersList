@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { BeneficiaryService } from 'src/app/services/beneficiary.service';
+import { BeneficiaryService, Beneficiary } from 'src/app/services/beneficiary.service';
 
 @Component({
   selector: 'app-user-table',
@@ -7,14 +7,15 @@ import { BeneficiaryService } from 'src/app/services/beneficiary.service';
   styleUrls: ['./user-table.component.css']
 })
 export class UserTableComponent implements OnInit {
-  users: any[] = [];
+  users: Beneficiary[] = [];
   isLoading = false;
 
-  @Output() onHandleShowDetailProduct = new EventEmitter<any>();
+  @Output() onHandleShowDetailProduct = new EventEmitter<Beneficiary>();
   @Output() sendTableFilterColumn = new EventEmitter<any>();
   @Output() sendTableFilterPage = new EventEmitter<number>();
-  @Output() onHandleShowHistoryModal = new EventEmitter<any>();
-  @Output() onHandleOpenModalVoucher = new EventEmitter<any>();
+  @Output() onHandleShowHistoryModal = new EventEmitter<Beneficiary>();
+  @Output() onHandleOpenModalVoucher = new EventEmitter<Beneficiary>();
+  @Input() isLoadingList: boolean = false;
 
   constructor(private userService: BeneficiaryService) {}
 
@@ -24,12 +25,12 @@ export class UserTableComponent implements OnInit {
 
   loadUsers(): void {
     this.isLoading = true;
-    this.userService.getAllUsers().subscribe({
-      next: (data) => {
+    this.userService.getAllBeneficiaries().subscribe({
+      next: (data: Beneficiary[]) => {
         this.users = data;
         this.isLoading = false;
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Error al cargar usuarios', err);
         this.isLoading = false;
       }
@@ -40,8 +41,7 @@ export class UserTableComponent implements OnInit {
     this.sendTableFilterColumn.emit(sortable);
   }
 
-
-  showDetailProduct(user: any): void {
+  showDetailProduct(user: Beneficiary): void {
     this.onHandleShowDetailProduct.emit(user);
   }
 
@@ -49,12 +49,11 @@ export class UserTableComponent implements OnInit {
     this.sendTableFilterPage.emit(page);
   }
 
-  showHistory(user: any): void {
+  showHistory(user: Beneficiary): void {
     this.onHandleShowHistoryModal.emit(user);
   }
 
-  openVoucher(user: any): void {
+  openVoucher(user: Beneficiary): void {
     this.onHandleOpenModalVoucher.emit(user);
   }
-  @Input() isLoadingList: boolean = false;
 }

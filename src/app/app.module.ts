@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +17,8 @@ import { RegistrarUsuariosComponent } from './views/registrar-usuarios/registrar
 import { UserRegistrerComponent } from './shared/components/user-registrer/user-registrer.component';
 import { SalesListComponent } from './shared/components/sales-list/sales-list.component';
 import { SalesComponent } from './views/sales/sales.component';
+import { LoginComponent } from './views/login/login.component';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -30,7 +33,8 @@ import { SalesComponent } from './views/sales/sales.component';
     RegistrarUsuariosComponent,
     UserRegistrerComponent,
     SalesListComponent,
-    SalesComponent
+    SalesComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +42,13 @@ import { SalesComponent } from './views/sales/sales.component';
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

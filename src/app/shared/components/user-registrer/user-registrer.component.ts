@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BeneficiaryService } from 'src/app/services/beneficiary.service';
+import { BeneficiaryService, Beneficiary } from 'src/app/services/beneficiary.service';
 
 @Component({
   selector: 'app-user-registrer',
@@ -7,9 +7,9 @@ import { BeneficiaryService } from 'src/app/services/beneficiary.service';
   styleUrls: ['./user-registrer.component.css']
 })
 export class UserRegistrerComponent implements OnInit {
-  users: any[] = [];
-  filteredUsers: any[] = [];
-  selectedUser: any = null;
+  users: Beneficiary[] = [];
+  filteredUsers: Beneficiary[] = [];
+  selectedUser: Beneficiary | null = null;
   isEdit: boolean = false;
 
   constructor(private userService: BeneficiaryService) {}
@@ -19,12 +19,12 @@ export class UserRegistrerComponent implements OnInit {
   }
 
   loadUsers(): void {
-    this.userService.getAllUsers().subscribe({
-      next: (data) => {
+    this.userService.getAllBeneficiaries().subscribe({
+      next: (data: Beneficiary[]) => {
         this.users = data;
         this.filteredUsers = [...this.users];
       },
-      error: (error) => console.error('Error al cargar los usuarios', error)
+      error: (error: any) => console.error('Error al cargar los usuarios', error)
     });
   }
 
@@ -43,25 +43,25 @@ export class UserRegistrerComponent implements OnInit {
   saveUser(): void {
     if (!this.selectedUser) return;
     this.isEdit
-      ? this.updateUser(this.selectedUser.id, this.selectedUser)
+      ? this.updateUser(this.selectedUser.id!, this.selectedUser)
       : this.createUser(this.selectedUser);
   }
 
-  createUser(user: any): void {
+  createUser(user: Beneficiary): void {
     if (!user.nombres || !user.apellidos || !user.rut) return;
 
-    this.userService.createUser(user).subscribe({
-      next: (newUser) => {
+    this.userService.createBeneficiary(user).subscribe({
+      next: (newUser: Beneficiary) => {
         this.loadUsers(); // Carga desde backend para asegurar consistencia
         this.resetForm();
       },
-      error: (error) => console.error('Error al crear el usuario', error)
+      error: (error: any) => console.error('Error al crear el usuario', error)
     });
   }
 
-  updateUser(id: number, updatedUser: any): void {
-    this.userService.updateUser(id, updatedUser).subscribe({
-      next: (updated) => {
+  updateUser(id: number, updatedUser: Beneficiary): void {
+    this.userService.updateBeneficiary(id, updatedUser).subscribe({
+      next: (updated: Beneficiary) => {
         const index = this.users.findIndex(user => user.id === id);
         if (index !== -1) {
           this.users[index] = updated;
@@ -69,22 +69,22 @@ export class UserRegistrerComponent implements OnInit {
         }
         this.resetForm();
       },
-      error: (error) => console.error('Error al actualizar el usuario', error)
+      error: (error: any) => console.error('Error al actualizar el usuario', error)
     });
   }
 
   deleteUser(id: number): void {
-    this.userService.deleteUser(id).subscribe({
+    this.userService.deleteBeneficiary(id).subscribe({
       next: () => {
         this.users = this.users.filter(user => user.id !== id);
         this.filteredUsers = [...this.users];
         if (this.selectedUser?.id === id) this.resetForm();
       },
-      error: (error) => console.error('Error al eliminar el usuario', error)
+      error: (error: any) => console.error('Error al eliminar el usuario', error)
     });
   }
 
-  selectUser(user: any): void {
+  selectUser(user: Beneficiary): void {
     this.selectedUser = { ...user };
     this.isEdit = true;
   }
@@ -95,8 +95,7 @@ export class UserRegistrerComponent implements OnInit {
   }
 
   createNewUser(): void {
-    this.selectedUser = {};
+    this.selectedUser = {} as Beneficiary;
     this.isEdit = false;
   }
-
 }

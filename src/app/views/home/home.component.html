@@ -1,2 +1,49 @@
+<div class="home-container">
+  <div class="welcome-section">
+    <h1>Bienvenido al Sistema GPS</h1>
+    <p>Sistema de Gestión de Productos y Servicios</p>
+  </div>
 
-<app-user-list> </app-user-list>
+  <div class="status-section">
+    <div class="status-card">
+      <h3>Estado del Sistema</h3>
+      <div class="status-item">
+        <span class="status-label">API Gateway:</span>
+        <span class="status-value" [class.connected]="apiStatus.includes('Connected')" [class.failed]="apiStatus.includes('failed')">
+          {{ apiStatus }}
+        </span>
+      </div>
+    </div>
+
+    <div class="user-card" *ngIf="userInfo">
+      <h3>Información del Usuario</h3>
+      <div class="user-info">
+        <p><strong>Email:</strong> {{ userInfo.email }}</p>
+        <p *ngIf="userInfo.roles?.length"><strong>Roles:</strong> {{ userInfo.roles?.join(', ') }}</p>
+        <p *ngIf="userInfo.permissions?.length"><strong>Permisos:</strong> {{ userInfo.permissions?.join(', ') }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="features-section">
+    <h3>Funcionalidades Disponibles</h3>
+    <div class="features-grid">
+      <div class="feature-card">
+        <h4>Gestión de Beneficiarios</h4>
+        <p>Administra la información de beneficiarios del sistema</p>
+      </div>
+      <div class="feature-card">
+        <h4>Registro de Usuarios</h4>
+        <p>Gestiona usuarios y permisos del sistema</p>
+      </div>
+      <div class="feature-card">
+        <h4>Ventas</h4>
+        <p>Administra transacciones de ventas</p>
+      </div>
+      <div class="feature-card">
+        <h4>Inventario</h4>
+        <p>Gestiona productos, bodegas y lotes</p>
+      </div>
+    </div>
+  </div>
+</div>

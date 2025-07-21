@@ -6,16 +6,8 @@
     font-family: 'Arial', sans-serif;
 }
 
-.logo img {
-    height: 60px; /* puedes ajustar a 24px, 20px, etc., según lo que necesites */
-    width: auto;
-    vertical-align: middle; /* asegura buena alineación con el texto si lo hay */
-}
-
-
 .navbar {
     background: #3CB371;
-    /*background: #7DF9FF;*/
     padding: 1rem 2rem;
     position: fixed;
     width: 100%;
@@ -32,28 +24,32 @@
     margin: 0 auto;
 }
 
-.logo {
+.nav-brand h2 {
     color: white;
     font-size: 1.5rem;
-    text-decoration: none;
     font-weight: bold;
+    margin: 0;
 }
 
 .nav-links {
     display: flex;
     gap: 2rem;
     list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
-.nav-links a {
+.nav-link {
     color: white;
     text-decoration: none;
     font-size: 1.1rem;
     transition: color 0.3s ease;
     position: relative;
+    cursor: pointer;
+    padding: 0.5rem 0;
 }
 
-.nav-links a::after {
+.nav-link::after {
     content: '';
     position: absolute;
     width: 0;
@@ -64,12 +60,51 @@
     transition: width 0.3s ease;
 }
 
-.nav-links a:hover::after {
+.nav-link:hover::after {
     width: 100%;
 }
 
-.nav-links a:hover {
+.nav-link:hover {
     color: #000000;
+}
+
+.nav-user {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    color: white;
+}
+
+.user-email {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.user-roles {
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+
+.logout-btn, .login-btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.logout-btn:hover, .login-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
 }
 
 .menu-toggle {
@@ -106,5 +141,12 @@
         position: relative;
     }
 
+    .nav-user {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
 
+    .user-info {
+        align-items: center;
+    }
 }

@@ -90,7 +90,7 @@
             <button class="btn edit-btn" (click)="selectUser(user)" title="Editar">
               <i class="fas fa-edit"></i> Editar
             </button>
-            <button class="btn delete-btn" (click)="deleteUser(user.id)" title="Eliminar">
+            <button class="btn delete-btn" (click)="deleteUser(user.id!)" title="Eliminar" *ngIf="user.id">
               <i class="fas fa-trash-alt"></i> Eliminar
             </button>
           </td>

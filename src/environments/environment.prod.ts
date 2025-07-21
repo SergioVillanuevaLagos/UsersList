@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://inventory-microservice-production-a316.up.railway.app'
+  apiUrl: 'https://api-gateway-production-f577.up.railway.app'
 };
