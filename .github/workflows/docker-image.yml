@@ -3,11 +3,11 @@ name: CI - Build, Test and Deploy Angular Frontend
 on:
   push:
     branches: [ "main" ]
-  workflow_dispatch:  # Permite ejecución manual desde GitHub
+  workflow_dispatch:  # Permite ejecutar manualmente
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository_owner }}/userslist/frontuserslist
+  IMAGE_NAME: ${{ github.repository }}/frontuserslist
 
 jobs:
   build-test-and-push:
@@ -41,7 +41,7 @@ jobs:
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.GHCR_PAT }}
           logout: true
 
       - name: Extract metadata (tags, labels) for Docker
